@@ -14,7 +14,11 @@ return.data.dist$mktval <- return.data.dist$cshom * return.data.dist$prccm
 return.data.dist$ret <- return.data.dist$trt1m/100
 
 # Exclude NAs
-monthly.ret <- return.data.dist[!is.na(return.data.dist$mktval)|!is.na(return.data.dist$ret),]
+monthly.ret <- return.data.dist[!is.na(return.data.dist$mktval)&!is.na(return.data.dist$ret),]
+
+# NOTE: There is a typo in the R script in Lecture 5, '|' should be changed to '&' as above
+# Alternative way of achieving same results
+monthly.ret <- return.data.dist %>% drop_na(mktval, ret)
 
 # Delete duplicate rows
 monthly.ret <- unique(monthly.ret)
